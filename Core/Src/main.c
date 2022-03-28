@@ -134,32 +134,73 @@ int main(void)
 
   HAL_Delay(250);
 
-  	/************* The following operation is using PUTS and GETS *********************/
+  fresult = f_open(&fil, "file5.txt", FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
 
-  	/* Open file to write/ create a file if it doesn't exist */
-  	fresult = f_open(&fil, "file3.txt", FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
+  HAL_Delay(10);
 
-  	/* Writing text */
-  	f_puts("This data is from the FILE3.txt. And it was written using ...f_puts... hello ", &fil);
+  f_close(&fil);
 
-  	/* Close file */
-  	fresult = f_close(&fil);
+//	/**************** The following operation is using f_write and f_read **************************/
+//
+//	/* Create second file with read write access and open it */
+//	fresult = f_open(&fil, "file4.txt", FA_CREATE_ALWAYS | FA_WRITE);
+//
+//	/* Writing text */
+//	strcpy (buffer, "This is File4.txt, written using ...f_write... and it says Hello from kerem\n");
+//
+//	fresult = f_write(&fil, buffer, bufsize(buffer), &bw);
+//
+//	send_uart ("File4.txt created and data is written\n");
+//
+//	/* Close file */
+//	f_close(&fil);
+//
+//
+//
+//	// clearing buffer to show that result obtained is from the file
+//	clear_buffer();
+//
+//	/* Open second file to read */
+//	fresult = f_open(&fil, "file4.txt", FA_READ);
+//	if (fresult == FR_OK)send_uart ("file4.txt is open and the data is shown below\n");
+//
+//	/* Read data from the file
+//	* Please see the function details for the arguments */
+//	f_read (&fil, buffer, f_size(&fil), &br);
+//	send_uart(buffer);
+//	send_uart("\n\n");
+//
+//	/* Close file */
+//	f_close(&fil);
+//
+//	clear_buffer();
 
-
-
-  	/* Open file to read */
-  	fresult = f_open(&fil, "file3.txt", FA_READ);
-
-  	/* Read string from the file */
-  	f_gets(buffer, f_size(&fil), &fil);
-
-  	send_uart("File3.txt is opened and it contains the data as shown below\n");
-  	send_uart(buffer);
-
-  	/* Close file */
-  	f_close(&fil);
-
-  	clear_buffer();
+//  	/************* The following operation is using PUTS and GETS *********************/
+//
+//  	/* Open file to write/ create a file if it doesn't exist */
+//  	fresult = f_open(&fil, "file3.txt", FA_OPEN_ALWAYS | FA_READ | FA_WRITE);
+//
+//  	/* Writing text */
+//  	f_puts("This data is from the FILE3.txt. And it was written using ...f_puts... hello ", &fil);
+//
+//  	/* Close file */
+//  	fresult = f_close(&fil);
+//
+//
+//
+//  	/* Open file to read */
+//  	fresult = f_open(&fil, "file3.txt", FA_READ);
+//
+//  	/* Read string from the file */
+//  	f_gets(buffer, f_size(&fil), &fil);
+//
+//  	send_uart("File3.txt is opened and it contains the data as shown below\n");
+//  	send_uart(buffer);
+//
+//  	/* Close file */
+//  	f_close(&fil);
+//
+//  	clear_buffer();
 
 
 //    fresult = f_mount(&fs, "/", 1);
@@ -300,6 +341,41 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+//	/**************** The following operation is using f_write and f_read **************************/
+//
+//	/* Create second file with read write access and open it */
+//	fresult = f_open(&fil, "file5.txt", FA_CREATE_ALWAYS | FA_WRITE);
+
+	fresult = f_open(&fil, "file5.txt", FA_WRITE);
+
+	/* Writing text */
+	strcpy (buffer, "kerem0101\n");
+
+	fresult = f_write(&fil, buffer, bufsize(buffer), &bw);
+
+	/* Close file */
+	f_close(&fil);
+
+	HAL_Delay(50);
+
+	// clearing buffer to show that result obtained is from the file
+	clear_buffer();
+
+	/* Open second file to read */
+	fresult = f_open(&fil, "file5.txt", FA_READ);
+	if (fresult == FR_OK)send_uart ("file5.txt is open and the data is shown below\n");
+
+	/* Read data from the file
+	* Please see the function details for the arguments */
+	f_read (&fil, buffer, f_size(&fil), &br);
+	send_uart(buffer);
+
+	/* Close file */
+	f_close(&fil);
+
+	clear_buffer();
+
+	HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
